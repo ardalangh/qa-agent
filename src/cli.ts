@@ -15,7 +15,7 @@ program
   .option("--cursor", "Install for Cursor only")
   .option("--claude", "Install for Claude Code only")
   .option("-y, --yes", "Non-interactive mode, accept defaults")
-  .option("--cwd", "Use current directory as project root (don't walk up)")
+  .option("--find-root", "Walk up to find project root (default: use current directory)")
   .action(async (opts) => {
     const { init } = await import("./commands/init");
     await init(opts);
@@ -26,6 +26,7 @@ program
   .description("Update QA agent assets to the latest version")
   .option("--cursor", "Update Cursor assets only")
   .option("--claude", "Update Claude Code assets only")
+  .option("--find-root", "Walk up to find project root (default: use current directory)")
   .action(async (opts) => {
     const { update } = await import("./commands/update");
     await update(opts);

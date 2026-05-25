@@ -9,11 +9,12 @@ export interface InitOptions {
   cursor?: boolean;
   claude?: boolean;
   yes?: boolean;
-  cwd?: boolean;
+  findRoot?: boolean;
 }
 
 export async function init(opts: InitOptions): Promise<void> {
-  const root = opts.cwd ? process.cwd() : findProjectRoot();
+  // Default to current directory for init (use --find-root to walk up and find project root)
+  const root = opts.findRoot ? findProjectRoot() : process.cwd();
   console.log(pc.cyan("QA Agent Init"));
   console.log(`Project root: ${pc.bold(root)}`);
 

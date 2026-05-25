@@ -6,10 +6,12 @@ import { findProjectRoot, projectPaths, assetsRoot, ensureDir } from "../lib/pat
 export interface UpdateOptions {
   cursor?: boolean;
   claude?: boolean;
+  findRoot?: boolean;
 }
 
 export async function update(opts: UpdateOptions): Promise<void> {
-  const root = findProjectRoot();
+  // Default to current directory (use --find-root to walk up and find project root)
+  const root = opts.findRoot ? findProjectRoot() : process.cwd();
   console.log(pc.cyan("QA Agent Update"));
   console.log(`Project root: ${pc.bold(root)}`);
 
