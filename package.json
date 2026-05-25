@@ -1,6 +1,6 @@
 {
   "name": "@ardygh/qa-agent",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Reusable QA agent for Cursor and Claude Code: declare test users, environments, and scenarios in YAML, then run them via agent-browser from chat or CI.",
   "keywords": [
     "qa",
@@ -16,7 +16,8 @@
   "type": "commonjs",
   "main": "dist/cli.js",
   "bin": {
-    "qa-agent": "dist/cli.js"
+    "qa-agent": "dist/cli.js",
+    "qa": "dist/cli.js"
   },
   "files": [
     "dist/",
