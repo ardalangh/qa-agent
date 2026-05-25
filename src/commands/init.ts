@@ -21,7 +21,8 @@ export async function init(opts: InitOptions): Promise<void> {
   let installCursor = opts.cursor || (!opts.cursor && !opts.claude);
   let installClaude = opts.claude || (!opts.cursor && !opts.claude);
 
-  if (!opts.yes && !opts.cursor && !opts.claude) {
+  // Skip interactive prompts if not in a TTY or --yes is provided
+  if (!opts.yes && !opts.cursor && !opts.claude && process.stdin.isTTY) {
     const response = await prompts({
       type: "multiselect",
       name: "targets",

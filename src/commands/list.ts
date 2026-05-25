@@ -111,7 +111,7 @@ export async function list(opts: ListOptions): Promise<void> {
     console.log("");
   }
 
-  // Check for placeholders and offer to edit (skip if --no-prompt)
+  // Check for placeholders and offer to edit (skip if --no-prompt or non-interactive)
   if (opts.prompt === false) return;
 
   const placeholderUsers = data.users?.filter((u) => isPlaceholder(u.email)) ?? [];
@@ -119,6 +119,12 @@ export async function list(opts: ListOptions): Promise<void> {
 
   if (placeholderUsers.length > 0 || placeholderEnvs.length > 0) {
     console.log(pc.yellow("⚠ Some values appear to be placeholders."));
+
+    // Skip interactive prompts if not running in a TTY
+    if (!process.stdin.isTTY) {
+      console.log(pc.dim("Run with an interactive terminal to update, or edit qa/users.yaml and qa/envs.yaml directly."));
+      return;
+    }
 
     const { shouldEdit } = await prompts({
       type: "confirm",
