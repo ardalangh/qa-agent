@@ -1,6 +1,6 @@
 {
-  "name": "qa-agent",
-  "version": "0.1.0",
+  "name": "@ardygh/qa-agent",
+  "version": "0.1.1",
   "description": "Reusable QA agent for Cursor and Claude Code: declare test users, environments, and scenarios in YAML, then run them via agent-browser from chat or CI.",
   "keywords": [
     "qa",

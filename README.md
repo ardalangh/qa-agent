@@ -5,12 +5,15 @@ Reusable QA agent for **Cursor** and **Claude Code**. Define test users, environ
 ## Installation
 
 ```bash
-# Install into your project
-npx qa-agent init
+# Install into your project (from npm)
+npx @ardygh/qa-agent init
 
 # Or install for specific platform only
-npx qa-agent init --cursor
-npx qa-agent init --claude
+npx @ardygh/qa-agent init --cursor
+npx @ardygh/qa-agent init --claude
+
+# Alternative: install from GitHub
+npx github:ardalangh/qa-agent init
 ```
 
 This installs:
@@ -70,7 +73,7 @@ agent-browser install  # Downloads Chrome
 
    Or from the command line:
    ```bash
-   npx qa-agent run login --env staging
+   npx @ardygh/qa-agent run login --env staging
    ```
 
 ## Slash Commands
@@ -91,14 +94,14 @@ agent-browser install  # Downloads Chrome
 ## CLI Commands
 
 ```bash
-npx qa-agent run <scenario> [--env <env>] [--user <user>] [--headed]
-npx qa-agent list [--scenarios|--users|--envs]
-npx qa-agent runs [--last N] [--failed] [--scenario X]
-npx qa-agent trend [--days 30] [--scenario X]
-npx qa-agent report [run-id]
-npx qa-agent clean [--keep-last N] [--older-than 30d]
-npx qa-agent doctor
-npx qa-agent update
+npx @ardygh/qa-agent run <scenario> [--env <env>] [--user <user>] [--headed]
+npx @ardygh/qa-agent list [--scenarios|--users|--envs]
+npx @ardygh/qa-agent runs [--last N] [--failed] [--scenario X]
+npx @ardygh/qa-agent trend [--days 30] [--scenario X]
+npx @ardygh/qa-agent report [run-id]
+npx @ardygh/qa-agent clean [--keep-last N] [--older-than 30d]
+npx @ardygh/qa-agent doctor
+npx @ardygh/qa-agent update
 ```
 
 ## Scenario YAML Reference

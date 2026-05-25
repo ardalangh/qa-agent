@@ -9,10 +9,11 @@ export interface InitOptions {
   cursor?: boolean;
   claude?: boolean;
   yes?: boolean;
+  cwd?: boolean;
 }
 
 export async function init(opts: InitOptions): Promise<void> {
-  const root = findProjectRoot();
+  const root = opts.cwd ? process.cwd() : findProjectRoot();
   console.log(pc.cyan("QA Agent Init"));
   console.log(`Project root: ${pc.bold(root)}`);
 

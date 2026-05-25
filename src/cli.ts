@@ -7,7 +7,7 @@ const program = new Command();
 program
   .name("qa-agent")
   .description("Reusable QA agent for Cursor and Claude Code")
-  .version("0.1.0");
+  .version("0.1.1");
 
 program
   .command("init")
@@ -15,6 +15,7 @@ program
   .option("--cursor", "Install for Cursor only")
   .option("--claude", "Install for Claude Code only")
   .option("-y, --yes", "Non-interactive mode, accept defaults")
+  .option("--cwd", "Use current directory as project root (don't walk up)")
   .action(async (opts) => {
     const { init } = await import("./commands/init");
     await init(opts);
