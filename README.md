@@ -193,7 +193,7 @@ View the summary: `qa/runs/SUMMARY.md`
 You can also install directly from GitHub without npm publish:
 
 ```bash
-npx github:your-org/qa-agent init
+npx github:ardalangh/qa-agent init
 ```
 
 ## License
