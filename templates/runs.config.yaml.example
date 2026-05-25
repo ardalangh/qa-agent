@@ -1,0 +1,33 @@
+# QA Agent - Runs Configuration
+# Configure run retention and optional remote sinks.
+
+storage:
+  retention:
+    keep_last: 50     # Keep last 50 runs
+    keep_days: 30     # Or runs from the last 30 days
+
+  # Optional: Configure sinks to send results to external services
+  # sinks:
+  #   # Copy artifacts to a backup location
+  #   - type: fs
+  #     path: /backups/qa-runs
+  #     mode: copy
+  #     notify_on: [always]
+  #
+  #   # Upload to S3
+  #   - type: s3
+  #     bucket: my-qa-artifacts
+  #     prefix: my-app/runs/
+  #     credentials_env: AWS_PROFILE
+  #     notify_on: [always]
+  #
+  #   # Notify Slack on failures
+  #   - type: slack
+  #     channel: "#qa-alerts"
+  #     notify_on: [failure]
+  #
+  #   # Create Linear issues on failures
+  #   - type: linear
+  #     team: ENG
+  #     labels: [qa, automated]
+  #     create_issue_on: [failure]

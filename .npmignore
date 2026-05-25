@@ -1,0 +1,17 @@
+src/
+tsconfig.json
+node_modules/
+*.log
+.DS_Store
+.env
+.env.local
+.idea/
+.vscode/
+.git/
+.github/
+agent-browser-docs/
+crawl_agent_browser_docs.py
+coverage/
+qa/
+*.tgz
+.gitignore

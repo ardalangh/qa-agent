@@ -1,0 +1,63 @@
+# QA Scenario: Example Test
+# This is a template scenario - rename it and customize for your app.
+# Files starting with _ are ignored by the scenario loader.
+
+name: example-homepage
+description: Verify homepage loads correctly and displays key elements
+tags: [smoke, homepage]
+
+# Requirements for running this scenario
+requires:
+  env: any           # Can run on any environment, or specify: [staging, prod]
+  user_role: null    # No login required. Use 'customer', 'admin', etc. to require login
+
+# Browser viewport (optional)
+viewport:
+  w: 1440
+  h: 900
+
+# Setup steps (run before main steps)
+# setup:
+#   - login: true    # Uncomment to require authenticated user
+
+# Main test steps
+steps:
+  # Navigate to homepage
+  - open: "{baseUrl}/"
+  - wait: { load: networkidle }
+
+  # Verify page title
+  - expect:
+      title_contains: "Example"
+
+  # Verify key elements are visible
+  - expect:
+      visible: "header"
+
+  - expect:
+      visible: "main"
+
+  # Take a screenshot
+  - screenshot: homepage.png
+
+  # Example: interact with a search box (uncomment and customize)
+  # - find:
+  #     label: "Search"
+  #     action: fill
+  #     value: "test query"
+  #
+  # - find:
+  #     role: button
+  #     name: "Search"
+  #     action: click
+  #
+  # - wait:
+  #     url: "**/search**"
+  #
+  # - expect:
+  #     visible: "[data-testid='search-results']"
+
+# Recording settings (override environment defaults)
+# recording:
+#   video: always
+#   har: always

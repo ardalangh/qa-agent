@@ -1,0 +1,12 @@
+# QA Agent - gitignore for qa/ directory
+# These files should NOT be committed to git
+
+# Run artifacts (screenshots, videos, reports)
+runs/
+
+# Secrets and state files
+.secrets/
+
+# Temporary files
+*.tmp
+*.bak

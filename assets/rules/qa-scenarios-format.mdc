@@ -1,0 +1,98 @@
+---
+description: QA scenario YAML schema hints for editor autocomplete
+globs: qa/scenarios/**/*.yaml
+alwaysApply: false
+---
+
+# QA Scenario YAML Schema
+
+## Required Fields
+
+```yaml
+name: string          # Unique scenario identifier
+steps: []             # Array of step objects
+```
+
+## Optional Fields
+
+```yaml
+description: string   # Human-readable description
+tags: [string]        # Tags for filtering (smoke, regression, etc.)
+requires:
+  env: string | any | [string]  # Environment constraint
+  user_role: string    # User role for login
+  user_id: string      # Specific user ID
+viewport:
+  w: number
+  h: number
+  scale: number
+setup: []              # Pre-test steps
+teardown: []           # Post-test cleanup
+recording:             # Override environment recording settings
+  video: always | on-failure | off
+  har: always | on-failure | off
+  console: always | off
+  trace: always | on-failure | off
+  snapshot: always | per-step | start-end | off
+```
+
+## Step Types
+
+### Navigation
+- `open: "{baseUrl}/path"`
+- `back: true`
+- `forward: true`
+- `reload: true`
+
+### Wait
+- `wait: { load: networkidle | load | domcontentloaded }`
+- `wait: { url: "pattern" }`
+- `wait: { text: "string" }`
+- `wait: { selector: "css" }`
+- `wait: { selector: "css", state: visible | hidden }`
+- `sleep: 2000`
+
+### Interaction
+- `click: "selector"`
+- `fill: { selector: "css", value: "text" }`
+- `type: { selector: "css", value: "text" }`
+- `press: "Enter"`
+- `select: { selector: "css", value: "option" }`
+- `check: "selector"`
+- `uncheck: "selector"`
+- `hover: "selector"`
+- `focus: "selector"`
+
+### Semantic Find
+- `find: { role: "button", action: click }`
+- `find: { role: "button", name: "Submit", action: click }`
+- `find: { label: "Email", action: fill, value: "text" }`
+- `find: { testid: "id", action: click }`
+- `find: { placeholder: "text", action: fill, value: "text" }`
+- `find: { text: "text", action: click }`
+
+### Assertions
+- `expect: { visible: "selector" }`
+- `expect: { not_visible: "selector" }`
+- `expect: { enabled: "selector" }`
+- `expect: { checked: "selector" }`
+- `expect: { url: "pattern" }`
+- `expect: { url_contains: "string" }`
+- `expect: { title_contains: "string" }`
+- `expect: { text: { selector: "css", equals: "string" } }`
+- `expect: { text: { selector: "css", contains: "string" } }`
+- `expect: { count: { selector: "css", equals: 5 } }`
+- `expect: { count: { selector: "css", gte: 1 } }`
+- `expect: { value: { selector: "css", equals: "string" } }`
+- `expect: { attr: { selector: "css", name: "attr", contains: "string" } }`
+
+### Capture
+- `screenshot: "filename.png"`
+- `screenshot: { path: "file.png", full: true, annotate: true }`
+- `snapshot: true`
+
+### Config
+- `set_viewport: { w: 1920, h: 1080 }`
+- `set_headers: { "Header": "value" }`
+- `cookies_clear: true`
+- `storage_clear: local | session | all`

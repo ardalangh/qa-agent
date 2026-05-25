@@ -1,0 +1,60 @@
+---
+description: QA agent guidelines for working with qa/ configuration and scenarios
+globs: qa/**
+alwaysApply: false
+---
+
+# QA Agent Guidelines
+
+## Security Rules
+
+1. **Never inline credentials** in YAML files
+   - Use `password_env: ENV_VAR_NAME` to reference environment variables
+   - Use `auth_vault: vault-entry` for agent-browser auth entries
+   - Use `state_file: path/to/file` for exported sessions
+   
+2. **Keep secrets in `qa/.secrets/`** which is gitignored
+   - State files: `qa/.secrets/user.state.json`
+   - Never commit `.secrets/` to version control
+
+## Scenario Writing
+
+1. **Use semantic selectors** when possible:
+   ```yaml
+   # Preferred
+   - find: { label: "Email", action: fill, value: "..." }
+   - find: { role: button, name: "Submit", action: click }
+   - find: { testid: "submit-btn", action: click }
+   
+   # Avoid when possible
+   - click: "#form > div:nth-child(2) > button"
+   ```
+
+2. **Always wait after navigation**:
+   ```yaml
+   - open: "{baseUrl}/page"
+   - wait: { load: networkidle }
+   ```
+
+3. **Add assertions after key actions** to verify state
+
+4. **Take screenshots at checkpoints** for debugging
+
+## Running Scenarios
+
+1. **Always use `--session`** for per-user isolation (handled by qa-agent CLI)
+
+2. **On failure, capture**:
+   - Annotated screenshot
+   - HAR network log
+   - Snapshot of page state
+
+3. **Check `requires_confirm`** before running against production environments
+
+## File Organization
+
+- `qa/users.yaml` - Test user definitions
+- `qa/environments.yaml` - Environment configs
+- `qa/scenarios/*.yaml` - Test scenarios (files starting with `_` are ignored)
+- `qa/runs/` - Run artifacts (gitignored)
+- `qa/.secrets/` - Sensitive state files (gitignored)

@@ -1,0 +1,25 @@
+# QA Agent - Test Users
+# Define users that can be used in test scenarios.
+# Credentials should NEVER be stored inline - use environment variables or auth vault.
+
+users:
+  # Example customer user with env-based credentials
+  - id: customer-a
+    role: customer
+    email: customer-a@example.com
+    password_env: QA_CUSTOMER_A_PASSWORD  # Set this in your shell: export QA_CUSTOMER_A_PASSWORD="..."
+    notes: "Standard logged-in customer for checkout flows"
+
+  # Example admin user with state file (exported session)
+  - id: admin
+    role: admin
+    email: admin@example.com
+    state_file: qa/.secrets/admin.state.json  # Created via: agent-browser state save
+    notes: "Admin user with pre-authenticated session"
+
+  # Example user with agent-browser auth vault
+  - id: support
+    role: support
+    email: support@example.com
+    auth_vault: support-user  # Created via: agent-browser auth save support-user ...
+    notes: "Support agent for ticket flows"

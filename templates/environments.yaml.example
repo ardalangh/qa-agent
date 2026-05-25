@@ -1,0 +1,46 @@
+# QA Agent - Test Environments
+# Define environments (base URLs, providers, recording settings).
+
+default: staging  # Default environment when --env is not specified
+
+environments:
+  # Local development
+  local:
+    baseUrl: http://localhost:3000
+    provider: null  # Use local Chrome
+    config: qa/agent-browser.json
+    allowedDomains:
+      - localhost
+      - "127.0.0.1"
+    recording:
+      video: off
+      har: always
+      console: always
+
+  # Staging environment
+  staging:
+    baseUrl: https://staging.example.com
+    provider: null
+    config: qa/agent-browser.json
+    allowedDomains:
+      - staging.example.com
+      - "*.example-cdn.com"
+    recording:
+      video: on-failure
+      har: always
+      console: always
+      trace: off
+      snapshot: per-step
+
+  # Production (smoke tests only)
+  prod:
+    baseUrl: https://app.example.com
+    provider: browserbase  # Use cloud browser for prod
+    requires_confirm: true  # Require explicit --env prod
+    allowedDomains:
+      - app.example.com
+      - "*.example-cdn.com"
+    recording:
+      video: always
+      har: always
+      console: always

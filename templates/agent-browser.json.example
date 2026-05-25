@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-browser.dev/schema.json",
+  "headed": false,
+  "ignoreHttpsErrors": true,
+  "args": "--no-sandbox,--disable-gpu"
+}

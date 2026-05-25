@@ -1,0 +1,48 @@
+{
+  "name": "qa-agent",
+  "version": "0.1.0",
+  "description": "Reusable QA agent for Cursor and Claude Code: declare test users, environments, and scenarios in YAML, then run them via agent-browser from chat or CI.",
+  "keywords": [
+    "qa",
+    "testing",
+    "browser-automation",
+    "agent-browser",
+    "cursor",
+    "claude-code",
+    "ai-agent",
+    "skills"
+  ],
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "dist/cli.js",
+  "bin": {
+    "qa-agent": "dist/cli.js"
+  },
+  "files": [
+    "dist/",
+    "assets/",
+    "templates/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.7.2"
+  }
+}
