@@ -104,7 +104,6 @@ program
   .option("--users", "List users only")
   .option("--envs", "List environments only")
   .option("--json", "Output as JSON")
-  .option("--no-prompt", "Don't prompt to edit placeholder values")
   .action(async (opts) => {
     const { list } = await import("./commands/list");
     await list(opts);

@@ -1,15 +1,11 @@
 import pc from "picocolors";
-import prompts from "prompts";
 import { loadProject, listScenarios } from "../lib/config";
-import { projectPaths } from "../lib/paths";
-import { editConfig, type ConfigEdit } from "../lib/configEditor";
 
 export interface ListOptions {
   scenarios?: boolean;
   users?: boolean;
   envs?: boolean;
   json?: boolean;
-  prompt?: boolean; // false when --no-prompt is passed
 }
 
 const PLACEHOLDER_PATTERNS = [
@@ -111,78 +107,12 @@ export async function list(opts: ListOptions): Promise<void> {
     console.log("");
   }
 
-  // Check for placeholders and offer to edit (skip if --no-prompt or non-interactive)
-  if (opts.prompt === false) return;
-
+  // Show informational message about placeholders
   const placeholderUsers = data.users?.filter((u) => isPlaceholder(u.email)) ?? [];
   const placeholderEnvs = data.envs?.filter((e) => isPlaceholder(e.baseUrl)) ?? [];
 
   if (placeholderUsers.length > 0 || placeholderEnvs.length > 0) {
     console.log(pc.yellow("⚠ Some values appear to be placeholders."));
-
-    // Skip interactive prompts if not running in a TTY
-    if (!process.stdin.isTTY) {
-      console.log(pc.dim("Run with an interactive terminal to update, or edit qa/users.yaml and qa/envs.yaml directly."));
-      return;
-    }
-
-    const { shouldEdit } = await prompts({
-      type: "confirm",
-      name: "shouldEdit",
-      message: "Would you like to update them now?",
-      initial: true,
-    });
-
-    if (shouldEdit) {
-      const paths = projectPaths(project.root);
-      const edits: ConfigEdit[] = [];
-
-      // Prompt for user email updates
-      for (const u of placeholderUsers) {
-        const { newEmail } = await prompts({
-          type: "text",
-          name: "newEmail",
-          message: `Enter email for user "${u.id}" (current: ${u.email}):`,
-          initial: "",
-        });
-        if (newEmail && newEmail !== u.email) {
-          edits.push({
-            file: paths.usersFile,
-            type: "user",
-            id: u.id,
-            field: "email",
-            oldValue: u.email!,
-            newValue: newEmail,
-          });
-        }
-      }
-
-      // Prompt for environment URL updates
-      for (const e of placeholderEnvs) {
-        const { newUrl } = await prompts({
-          type: "text",
-          name: "newUrl",
-          message: `Enter baseUrl for env "${e.id}" (current: ${e.baseUrl}):`,
-          initial: "",
-        });
-        if (newUrl && newUrl !== e.baseUrl) {
-          edits.push({
-            file: paths.envsFile,
-            type: "env",
-            id: e.id,
-            field: "baseUrl",
-            oldValue: e.baseUrl,
-            newValue: newUrl,
-          });
-        }
-      }
-
-      if (edits.length > 0) {
-        await editConfig(edits);
-        console.log(pc.green(`✓ Updated ${edits.length} value(s).`));
-      } else {
-        console.log(pc.dim("No changes made."));
-      }
-    }
+    console.log(pc.dim("  Edit qa/users.yaml and qa/envs.yaml to update them."));
   }
 }
